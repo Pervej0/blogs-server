@@ -4,7 +4,7 @@ import "dotenv/config";
 import { TBlog } from "./types/types";
 const app: Application = express();
 const client = new MongoClient(process.env.URL as string);
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 // parser
 app.use(express.json());
