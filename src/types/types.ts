@@ -1,11 +1,16 @@
 /*
 ==========
- userId, blogId, and id  type number is possible, though I am setting 
- types as string because of fast query with mongoDB
+ blogId, and id  type number is possible, though I am setting 
+ types as string because of fast query with mongoDB genarated _id
  ==========
 */
 
-export type TBlog = { userId: string; id: string; title: string; body: string };
+export type TBlog = {
+  userId: number;
+  id?: string;
+  title: string;
+  body: string;
+};
 
 export type TComment = {
   blogId: string;
