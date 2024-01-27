@@ -75,6 +75,11 @@ async function main() {
       const result = await commentCollection.deleteOne(filter);
       res.status(200).json(result);
     });
+
+    app.get("/", (req, res) => {
+      res.send("Hey this is my SERVER API running 🥳");
+    });
+
     app.listen(PORT, () => {
       console.log("The server is running on port", PORT);
     });
