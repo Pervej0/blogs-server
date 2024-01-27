@@ -84,7 +84,7 @@ async function main() {
       console.log("The server is running on port", PORT);
     });
   } finally {
-    // await client.close();
+    await client.close();
   }
 }
 
