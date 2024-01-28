@@ -12,10 +12,11 @@ export type TBlog = {
   body: string;
 };
 
+// Comment body field name change into commentBody for the better understand
 export type TComment = {
   blogId: string;
   id: string;
   name: string;
   email: string;
-  body: string;
+  commentBody: string;
 };

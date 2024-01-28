@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import { MongoClient, ObjectId } from "mongodb";
+import cors from "cors";
 import "dotenv/config";
 import { TBlog } from "./types/types";
 const app: Application = express();
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 // parser
 app.use(express.json());
+app.use(cors());
 
 async function main() {
   try {
@@ -60,6 +62,17 @@ async function main() {
       const result = await commentCollection.find({}).toArray();
       res.status(200).json(result);
     });
+    // get a comment & blog
+    app.get("/comments/:id", async (req, res) => {
+      const blogFilter = { _id: new ObjectId(req.params.id) };
+      const commentFilter = { blogId: req.params.id };
+      const blog = await blogsCollection.findOne(blogFilter);
+      const comment = await commentCollection.findOne(commentFilter);
+      const commentObj = { ...comment };
+      delete commentObj?._id;
+      const result = { ...blog, ...commentObj };
+      res.status(200).json(result);
+    });
     // update a blog
     app.put("/comments/:id", async (req, res) => {
       const filter = { _id: new ObjectId(req.params.id) };
@@ -84,7 +97,7 @@ async function main() {
       console.log("The server is running on port", PORT);
     });
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 
