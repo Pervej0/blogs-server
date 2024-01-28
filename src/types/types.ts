@@ -18,5 +18,5 @@ export type TComment = {
   id: string;
   name: string;
   email: string;
-  commentBody: string;
+  body: string;
 };

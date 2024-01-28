@@ -67,10 +67,8 @@ async function main() {
       const blogFilter = { _id: new ObjectId(req.params.id) };
       const commentFilter = { blogId: req.params.id };
       const blog = await blogsCollection.findOne(blogFilter);
-      const comment = await commentCollection.findOne(commentFilter);
-      const commentObj = { ...comment };
-      delete commentObj?._id;
-      const result = { ...blog, ...commentObj };
+      const comment = await commentCollection.find(commentFilter).toArray();
+      const result = { ...blog, comments: comment };
       res.status(200).json(result);
     });
     // update a blog
