@@ -46,6 +46,7 @@ async function main() {
       const result = await blogsCollection.deleteOne(filter);
       res.status(200).json(result);
     });
+
     // ========= comment collection ===========
 
     // post a blog
@@ -87,6 +88,7 @@ async function main() {
       res.status(200).json(result);
     });
 
+    // test route
     app.get("/", (req, res) => {
       res.send("Hey this is my SERVER API running 🥳");
     });
