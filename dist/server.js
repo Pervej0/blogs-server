@@ -77,10 +77,8 @@ function main() {
                 const blogFilter = { _id: new mongodb_1.ObjectId(req.params.id) };
                 const commentFilter = { blogId: req.params.id };
                 const blog = yield blogsCollection.findOne(blogFilter);
-                const comment = yield commentCollection.findOne(commentFilter);
-                const commentObj = Object.assign({}, comment);
-                commentObj === null || commentObj === void 0 ? true : delete commentObj._id;
-                const result = Object.assign(Object.assign({}, blog), commentObj);
+                const comment = yield commentCollection.find(commentFilter).toArray();
+                const result = Object.assign(Object.assign({}, blog), { comments: comment });
                 res.status(200).json(result);
             }));
             // update a blog
@@ -98,6 +96,7 @@ function main() {
                 const result = yield commentCollection.deleteOne(filter);
                 res.status(200).json(result);
             }));
+            // test route
             app.get("/", (req, res) => {
                 res.send("Hey this is my SERVER API running 🥳");
             });
